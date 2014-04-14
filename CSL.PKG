@@ -1,0 +1,3469 @@
+**************************************************************************
+* IBK CSL for OS/2(R), Version 4
+* (C)Copyright IBK Switzerland 1998-2001
+* Licensed Material - Program-Property of IBK - All Rights Reserved
+**************************************************************************
+SERVICELEVEL
+   LEVEL = '000012'
+
+PATH
+   FILE = 'C:/CSL',
+   FILELABEL = 'Installation directory'
+
+OPTIONS
+   SUCCESSINSMSG = 'The components of CSL have been successfully installed. You must reboot in order to use CSL.'
+
+FILE
+   EXITWHEN = 'ALWAYS',
+   EXITIGNOREERR = 'NO',
+   EXIT = 'SETVAR FOLDERID=IbkCslFolder'
+
+**********************************************************************
+
+COMPONENT
+   NAME = 'Base',
+   ID = 'INSFIRST',
+   DISPLAY = 'NO',
+   SIZE = '1140000',
+   SHARED = 'NO',
+   DELETE = 'YES'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:CSL.icf',
+   PWS = 'CSL.icf',
+   SIZE = '550'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:CSL.dsc',
+   PWS = 'CSL.dsc',
+   SIZE = '896'
+
+FILE
+   EXITWHEN = 'INSTALL || UPDATE || RESTORE',
+   EXITIGNOREERR = 'NO',
+   EXIT = 'SETVAR CATALOG=CSL.icf'
+
+FILE
+   EXITWHEN = 'INSTALL || UPDATE',
+   EXITIGNOREERR = 'NO',
+   EXIT = 'CREATEWPSOBJECT WPFolder "CSL for OS/2" <WP_DESKTOP> R "OBJECTID=<%FOLDERID%>;"'
+
+INCLUDE
+   NAME = 'DRIVE:EPFISINC.PKG'
+
+**********************************************************************
+
+COMPONENT
+   NAME = 'Program Files',
+   ID = 'CSLEXE',
+   REQUIRES = 'INSFIRST DELLAST',
+   DISPLAY = 'YES',
+   DESCRIPTION = 'Contains the executive, kernel and standard libraries',
+   SIZE = '1170000',
+   SHARED = 'NO',
+   DELETE = 'YES'
+
+UPDATECONFIG
+   VAR = 'LIBPATH',
+   ADDSTR = '%EPFIFILEDIR%//Os2//Bin',
+   ADDWHEN = 'INSTALL',
+   DELETEWHEN = 'DELETE'
+
+UPDATECONFIG
+   VAR = 'SET PATH',
+   ADDSTR = '%EPFIFILEDIR%//Os2//Bin',
+   ADDWHEN = 'INSTALL',
+   DELETEWHEN = 'DELETE'
+
+UPDATECONFIG
+   VAR = 'SET CSLPATH',
+   ADDSTR = '%EPFIFILEDIR%//CslPath',
+   ADDWHEN = 'INSTALL',
+   DELETEWHEN = 'DELETE'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Readme.txt',
+   PWS = 'Readme.txt',
+   SIZE = '9617'
+
+FILE
+   EXITWHEN = 'INSTALL || UPDATE || RESTORE',
+   EXITIGNOREERR = 'NO',
+   EXIT = 'CREATEWPSOBJECT WPShadow "Readme" <%FOLDERID%> R "OBJECTID=<IbkCslRdme>;SHADOWID=%EPFIFILEDIR%//Readme.txt"'
+
+FILE
+   EXITWHEN = 'DELETE',
+   EXITIGNOREERR = 'YES',
+   EXIT = 'DELETEWPSOBJECT <IbkCslRdme>'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:License.txt',
+   PWS = 'License.txt',
+   SIZE = '16058'
+
+FILE
+   EXITWHEN = 'INSTALL || UPDATE || RESTORE',
+   EXITIGNOREERR = 'NO',
+   EXIT = 'CREATEWPSOBJECT WPShadow "License" <%FOLDERID%> R "OBJECTID=<IbkCslLic>;SHADOWID=%EPFIFILEDIR%//License.txt"'
+
+FILE
+   EXITWHEN = 'DELETE',
+   EXITIGNOREERR = 'YES',
+   EXIT = 'DELETEWPSOBJECT <IbkCslLic>'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:MySQL.txt',
+   PWS = 'MySQL.txt',
+   SIZE = '1516'
+
+FILE
+   EXITWHEN = 'INSTALL || UPDATE || RESTORE',
+   EXITIGNOREERR = 'NO',
+   EXIT = 'CREATEWPSOBJECT WPShadow "MySQL Notes" <%FOLDERID%> R "OBJECTID=<IbkCslMysql>;SHADOWID=%EPFIFILEDIR%//MySQL.txt"'
+
+FILE
+   EXITWHEN = 'DELETE',
+   EXITIGNOREERR = 'YES',
+   EXIT = 'DELETEWPSOBJECT <IbkCslMysql>'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Bin\Csl.exe',
+   PWS = 'Os2/Bin/Csl.exe',
+   SIZE = '54784'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Bin\ZBaseI.dll',
+   PWS = 'Os2/Bin/ZBaseI.dll',
+   SIZE = '161307'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Bin\ZcComLib.dll',
+   PWS = 'Os2/Bin/ZcComLib.dll',
+   SIZE = '47652'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Bin\ZcDaxLib.dll',
+   PWS = 'Os2/Bin/ZcDaxLib.dll',
+   SIZE = '54303'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Bin\ZcFileLb.dll',
+   PWS = 'Os2/Bin/ZcFileLb.dll',
+   SIZE = '92180'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Bin\ZcMathLb.dll',
+   PWS = 'Os2/Bin/ZcMathLb.dll',
+   SIZE = '51732'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Bin\ZcPrfLib.dll',
+   PWS = 'Os2/Bin/ZcPrfLib.dll',
+   SIZE = '48151'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Bin\ZcRexLib.dll',
+   PWS = 'Os2/Bin/ZcRexLib.dll',
+   SIZE = '44579'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Bin\ZCslApi.dll',
+   PWS = 'Os2/Bin/ZCslApi.dll',
+   SIZE = '49163'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Bin\ZCslI.dll',
+   PWS = 'Os2/Bin/ZCslI.dll',
+   SIZE = '154638'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Bin\ZCslWrpI.dll',
+   PWS = 'Os2/Bin/ZCslWrpI.dll',
+   SIZE = '71699'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Bin\ZcStrLib.dll',
+   PWS = 'Os2/Bin/ZcStrLib.dll',
+   SIZE = '76310'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Bin\ZcSysLib.dll',
+   PWS = 'Os2/Bin/ZcSysLib.dll',
+   SIZE = '71190'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Bin\ZDb2I.dll',
+   PWS = 'Os2/Bin/ZDb2I.dll',
+   SIZE = '59420'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Bin\ZOracleI.dll',
+   PWS = 'Os2/Bin/ZOracleI.dll',
+   SIZE = '54815'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Bin\ZMysqlI.dll',
+   PWS = 'Os2/Bin/ZMysqlI.dll',
+   SIZE = '44574'
+
+**********************************************************************
+
+COMPONENT
+   NAME = 'Documentation',
+   ID = 'CSLDOC',
+   REQUIRES = 'INSFIRST DELLAST',
+   DISPLAY = 'YES',
+   DESCRIPTION = 'CSL Reference Manual',
+   SIZE = '1490000',
+   SHARED = 'NO',
+   DELETE = 'YES'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:img\1pix.png',
+   PWS = 'img/1pix.png',
+   SIZE = '159'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:img\csl.png',
+   PWS = 'img/csl.png',
+   SIZE = '2255'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\api1.htm',
+   PWS = 'csldoc/api1.htm',
+   SIZE = '6585'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\api2.htm',
+   PWS = 'csldoc/api2.htm',
+   SIZE = '7767'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\api3.htm',
+   PWS = 'csldoc/api3.htm',
+   SIZE = '6489'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\api41.htm',
+   PWS = 'csldoc/api41.htm',
+   SIZE = '5289'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\api42.htm',
+   PWS = 'csldoc/api42.htm',
+   SIZE = '6627'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\api43.htm',
+   PWS = 'csldoc/api43.htm',
+   SIZE = '5425'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\api44.htm',
+   PWS = 'csldoc/api44.htm',
+   SIZE = '5685'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\api45.htm',
+   PWS = 'csldoc/api45.htm',
+   SIZE = '5522'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\api46.htm',
+   PWS = 'csldoc/api46.htm',
+   SIZE = '5433'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\api47.htm',
+   PWS = 'csldoc/api47.htm',
+   SIZE = '5407'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\api48.htm',
+   PWS = 'csldoc/api48.htm',
+   SIZE = '6276'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\api49.htm',
+   PWS = 'csldoc/api49.htm',
+   SIZE = '5811'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\api4A.htm',
+   PWS = 'csldoc/api4A.htm',
+   SIZE = '6302'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\api4B.htm',
+   PWS = 'csldoc/api4B.htm',
+   SIZE = '5495'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\api4C.htm',
+   PWS = 'csldoc/api4C.htm',
+   SIZE = '5377'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\api4D.htm',
+   PWS = 'csldoc/api4D.htm',
+   SIZE = '5444'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\api4E.htm',
+   PWS = 'csldoc/api4E.htm',
+   SIZE = '7155'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\api4F.htm',
+   PWS = 'csldoc/api4F.htm',
+   SIZE = '5387'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\api4G.htm',
+   PWS = 'csldoc/api4G.htm',
+   SIZE = '6333'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\api4H.htm',
+   PWS = 'csldoc/api4H.htm',
+   SIZE = '5818'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\api4I.htm',
+   PWS = 'csldoc/api4I.htm',
+   SIZE = '5745'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\api4J.htm',
+   PWS = 'csldoc/api4J.htm',
+   SIZE = '5480'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\capi1.htm',
+   PWS = 'csldoc/capi1.htm',
+   SIZE = '5752'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\capi2.htm',
+   PWS = 'csldoc/capi2.htm',
+   SIZE = '9752'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\capi3.htm',
+   PWS = 'csldoc/capi3.htm',
+   SIZE = '7517'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\capi41.htm',
+   PWS = 'csldoc/capi41.htm',
+   SIZE = '5861'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\capi42.htm',
+   PWS = 'csldoc/capi42.htm',
+   SIZE = '5957'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\capi43.htm',
+   PWS = 'csldoc/capi43.htm',
+   SIZE = '6558'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\capi44.htm',
+   PWS = 'csldoc/capi44.htm',
+   SIZE = '5776'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\capi45.htm',
+   PWS = 'csldoc/capi45.htm',
+   SIZE = '7548'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\capi46.htm',
+   PWS = 'csldoc/capi46.htm',
+   SIZE = '6927'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\capi47.htm',
+   PWS = 'csldoc/capi47.htm',
+   SIZE = '7288'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\capi48.htm',
+   PWS = 'csldoc/capi48.htm',
+   SIZE = '7129'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\capi49.htm',
+   PWS = 'csldoc/capi49.htm',
+   SIZE = '6064'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\capi4A.htm',
+   PWS = 'csldoc/capi4A.htm',
+   SIZE = '6126'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\capi4B.htm',
+   PWS = 'csldoc/capi4B.htm',
+   SIZE = '6315'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\capi4C.htm',
+   PWS = 'csldoc/capi4C.htm',
+   SIZE = '6131'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\capi4D.htm',
+   PWS = 'csldoc/capi4D.htm',
+   SIZE = '7066'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\capi4E.htm',
+   PWS = 'csldoc/capi4E.htm',
+   SIZE = '6125'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\capi4F.htm',
+   PWS = 'csldoc/capi4F.htm',
+   SIZE = '6571'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\capi4G.htm',
+   PWS = 'csldoc/capi4G.htm',
+   SIZE = '6472'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\capi4H.htm',
+   PWS = 'csldoc/capi4H.htm',
+   SIZE = '6743'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\capi4I.htm',
+   PWS = 'csldoc/capi4I.htm',
+   SIZE = '6707'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\capi4K.htm',
+   PWS = 'csldoc/capi4K.htm',
+   SIZE = '5968'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\capi4L.htm',
+   PWS = 'csldoc/capi4L.htm',
+   SIZE = '6044'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\capi4M.htm',
+   PWS = 'csldoc/capi4M.htm',
+   SIZE = '6299'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\capi4N.htm',
+   PWS = 'csldoc/capi4N.htm',
+   SIZE = '6821'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\capi4O.htm',
+   PWS = 'csldoc/capi4O.htm',
+   SIZE = '5933'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\capi4P.htm',
+   PWS = 'csldoc/capi4P.htm',
+   SIZE = '5961'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\comm1.htm',
+   PWS = 'csldoc/comm1.htm',
+   SIZE = '5420'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\comm2.htm',
+   PWS = 'csldoc/comm2.htm',
+   SIZE = '4769'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\comm3.htm',
+   PWS = 'csldoc/comm3.htm',
+   SIZE = '4769'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\comm4.htm',
+   PWS = 'csldoc/comm4.htm',
+   SIZE = '4655'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\comm5.htm',
+   PWS = 'csldoc/comm5.htm',
+   SIZE = '5647'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\comm6.htm',
+   PWS = 'csldoc/comm6.htm',
+   SIZE = '5387'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\comm7.htm',
+   PWS = 'csldoc/comm7.htm',
+   SIZE = '4600'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\comm8.htm',
+   PWS = 'csldoc/comm8.htm',
+   SIZE = '5049'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\comm9.htm',
+   PWS = 'csldoc/comm9.htm',
+   SIZE = '5040'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\commA.htm',
+   PWS = 'csldoc/commA.htm',
+   SIZE = '4842'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\commB.htm',
+   PWS = 'csldoc/commB.htm',
+   SIZE = '4782'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\commC.htm',
+   PWS = 'csldoc/commC.htm',
+   SIZE = '4603'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\commD.htm',
+   PWS = 'csldoc/commD.htm',
+   SIZE = '4830'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\commE.htm',
+   PWS = 'csldoc/commE.htm',
+   SIZE = '5407'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\commF.htm',
+   PWS = 'csldoc/commF.htm',
+   SIZE = '5000'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\dax1.htm',
+   PWS = 'csldoc/dax1.htm',
+   SIZE = '6238'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\dax2.htm',
+   PWS = 'csldoc/dax2.htm',
+   SIZE = '4855'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\dax3.htm',
+   PWS = 'csldoc/dax3.htm',
+   SIZE = '5980'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\dax4.htm',
+   PWS = 'csldoc/dax4.htm',
+   SIZE = '4924'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\dax5.htm',
+   PWS = 'csldoc/dax5.htm',
+   SIZE = '4903'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\dax6.htm',
+   PWS = 'csldoc/dax6.htm',
+   SIZE = '5089'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\dax7.htm',
+   PWS = 'csldoc/dax7.htm',
+   SIZE = '5012'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\dax8.htm',
+   PWS = 'csldoc/dax8.htm',
+   SIZE = '5309'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\dax9.htm',
+   PWS = 'csldoc/dax9.htm',
+   SIZE = '5177'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\daxA.htm',
+   PWS = 'csldoc/daxA.htm',
+   SIZE = '4880'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\daxB.htm',
+   PWS = 'csldoc/daxB.htm',
+   SIZE = '5054'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\daxC.htm',
+   PWS = 'csldoc/daxC.htm',
+   SIZE = '4960'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\daxD.htm',
+   PWS = 'csldoc/daxD.htm',
+   SIZE = '4906'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\daxE.htm',
+   PWS = 'csldoc/daxE.htm',
+   SIZE = '4960'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\daxF.htm',
+   PWS = 'csldoc/daxF.htm',
+   SIZE = '4960'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\daxG.htm',
+   PWS = 'csldoc/daxG.htm',
+   SIZE = '5000'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\daxH.htm',
+   PWS = 'csldoc/daxH.htm',
+   SIZE = '6141'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\daxI.htm',
+   PWS = 'csldoc/daxI.htm',
+   SIZE = '5182'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\daxU.htm',
+   PWS = 'csldoc/daxU.htm',
+   SIZE = '7008'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\daxV.htm',
+   PWS = 'csldoc/daxV.htm',
+   SIZE = '7021'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\daxW.htm',
+   PWS = 'csldoc/daxW.htm',
+   SIZE = '6494'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\direct1.htm',
+   PWS = 'csldoc/direct1.htm',
+   SIZE = '4451'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\direct2.htm',
+   PWS = 'csldoc/direct2.htm',
+   SIZE = '5058'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\direct3.htm',
+   PWS = 'csldoc/direct3.htm',
+   SIZE = '5059'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\direct4.htm',
+   PWS = 'csldoc/direct4.htm',
+   SIZE = '5176'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\direct5.htm',
+   PWS = 'csldoc/direct5.htm',
+   SIZE = '4637'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\direct6.htm',
+   PWS = 'csldoc/direct6.htm',
+   SIZE = '4581'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\direct7.htm',
+   PWS = 'csldoc/direct7.htm',
+   SIZE = '4557'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\direct8.htm',
+   PWS = 'csldoc/direct8.htm',
+   SIZE = '4230'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\direct9.htm',
+   PWS = 'csldoc/direct9.htm',
+   SIZE = '4257'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\directA.htm',
+   PWS = 'csldoc/directA.htm',
+   SIZE = '4661'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\file1.htm',
+   PWS = 'csldoc/file1.htm',
+   SIZE = '6066'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\file2.htm',
+   PWS = 'csldoc/file2.htm',
+   SIZE = '4964'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\file3.htm',
+   PWS = 'csldoc/file3.htm',
+   SIZE = '4961'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\file4.htm',
+   PWS = 'csldoc/file4.htm',
+   SIZE = '4769'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\file5.htm',
+   PWS = 'csldoc/file5.htm',
+   SIZE = '4807'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\file6.htm',
+   PWS = 'csldoc/file6.htm',
+   SIZE = '4940'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\file7.htm',
+   PWS = 'csldoc/file7.htm',
+   SIZE = '4863'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\file8.htm',
+   PWS = 'csldoc/file8.htm',
+   SIZE = '5148'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\file9.htm',
+   PWS = 'csldoc/file9.htm',
+   SIZE = '5162'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\fileA.htm',
+   PWS = 'csldoc/fileA.htm',
+   SIZE = '4926'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\fileB.htm',
+   PWS = 'csldoc/fileB.htm',
+   SIZE = '6537'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\fileC.htm',
+   PWS = 'csldoc/fileC.htm',
+   SIZE = '5168'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\fileD.htm',
+   PWS = 'csldoc/fileD.htm',
+   SIZE = '5117'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\fileE.htm',
+   PWS = 'csldoc/fileE.htm',
+   SIZE = '5040'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\fileF.htm',
+   PWS = 'csldoc/fileF.htm',
+   SIZE = '4813'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\fileG.htm',
+   PWS = 'csldoc/fileG.htm',
+   SIZE = '4786'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\fileH.htm',
+   PWS = 'csldoc/fileH.htm',
+   SIZE = '5043'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\fileI.htm',
+   PWS = 'csldoc/fileI.htm',
+   SIZE = '5017'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\fileJ.htm',
+   PWS = 'csldoc/fileJ.htm',
+   SIZE = '5047'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\index.htm',
+   PWS = 'csldoc/index.htm',
+   SIZE = '3980'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\inst1.htm',
+   PWS = 'csldoc/inst1.htm',
+   SIZE = '4988'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\inst2.htm',
+   PWS = 'csldoc/inst2.htm',
+   SIZE = '6689'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\inst3.htm',
+   PWS = 'csldoc/inst3.htm',
+   SIZE = '6004'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\intro1.htm',
+   PWS = 'csldoc/intro1.htm',
+   SIZE = '5099'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\intro2.htm',
+   PWS = 'csldoc/intro2.htm',
+   SIZE = '4546'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\intro3.htm',
+   PWS = 'csldoc/intro3.htm',
+   SIZE = '4426'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\intro4.htm',
+   PWS = 'csldoc/intro4.htm',
+   SIZE = '20698'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\lang1.htm',
+   PWS = 'csldoc/lang1.htm',
+   SIZE = '4907'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\lang2.htm',
+   PWS = 'csldoc/lang2.htm',
+   SIZE = '4492'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\lang3.htm',
+   PWS = 'csldoc/lang3.htm',
+   SIZE = '4917'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\lang31.htm',
+   PWS = 'csldoc/lang31.htm',
+   SIZE = '6140'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\lang41.htm',
+   PWS = 'csldoc/lang41.htm',
+   SIZE = '5237'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\lang42.htm',
+   PWS = 'csldoc/lang42.htm',
+   SIZE = '5249'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\lang43.htm',
+   PWS = 'csldoc/lang43.htm',
+   SIZE = '6141'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\lang44.htm',
+   PWS = 'csldoc/lang44.htm',
+   SIZE = '5774'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\lang45.htm',
+   PWS = 'csldoc/lang45.htm',
+   SIZE = '6142'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\lang5.htm',
+   PWS = 'csldoc/lang5.htm',
+   SIZE = '7436'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\lang6.htm',
+   PWS = 'csldoc/lang6.htm',
+   SIZE = '4711'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\lang71.htm',
+   PWS = 'csldoc/lang71.htm',
+   SIZE = '4712'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\lang72.htm',
+   PWS = 'csldoc/lang72.htm',
+   SIZE = '4808'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\lang73.htm',
+   PWS = 'csldoc/lang73.htm',
+   SIZE = '5311'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\lang74.htm',
+   PWS = 'csldoc/lang74.htm',
+   SIZE = '4964'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\lang75.htm',
+   PWS = 'csldoc/lang75.htm',
+   SIZE = '4952'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\lang76.htm',
+   PWS = 'csldoc/lang76.htm',
+   SIZE = '5151'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\lang81.htm',
+   PWS = 'csldoc/lang81.htm',
+   SIZE = '5370'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\lang82.htm',
+   PWS = 'csldoc/lang82.htm',
+   SIZE = '6009'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\lang83.htm',
+   PWS = 'csldoc/lang83.htm',
+   SIZE = '5880'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\lang91.htm',
+   PWS = 'csldoc/lang91.htm',
+   SIZE = '6812'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\lang92.htm',
+   PWS = 'csldoc/lang92.htm',
+   SIZE = '5085'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\langA.htm',
+   PWS = 'csldoc/langA.htm',
+   SIZE = '6519'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\langB.htm',
+   PWS = 'csldoc/langB.htm',
+   SIZE = '7552'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\link1.htm',
+   PWS = 'csldoc/link1.htm',
+   SIZE = '4227'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\math1.htm',
+   PWS = 'csldoc/math1.htm',
+   SIZE = '5563'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\math2.htm',
+   PWS = 'csldoc/math2.htm',
+   SIZE = '4622'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\math3.htm',
+   PWS = 'csldoc/math3.htm',
+   SIZE = '4714'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\math4.htm',
+   PWS = 'csldoc/math4.htm',
+   SIZE = '4719'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\math5.htm',
+   PWS = 'csldoc/math5.htm',
+   SIZE = '4664'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\math6.htm',
+   PWS = 'csldoc/math6.htm',
+   SIZE = '4638'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\math7.htm',
+   PWS = 'csldoc/math7.htm',
+   SIZE = '4638'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\math8.htm',
+   PWS = 'csldoc/math8.htm',
+   SIZE = '4653'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\math9.htm',
+   PWS = 'csldoc/math9.htm',
+   SIZE = '4647'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\mathA.htm',
+   PWS = 'csldoc/mathA.htm',
+   SIZE = '4638'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\mathB.htm',
+   PWS = 'csldoc/mathB.htm',
+   SIZE = '4654'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\mathC.htm',
+   PWS = 'csldoc/mathC.htm',
+   SIZE = '4653'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\mathD.htm',
+   PWS = 'csldoc/mathD.htm',
+   SIZE = '4638'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\mathE.htm',
+   PWS = 'csldoc/mathE.htm',
+   SIZE = '4639'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\mathF.htm',
+   PWS = 'csldoc/mathF.htm',
+   SIZE = '4637'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\mathG.htm',
+   PWS = 'csldoc/mathG.htm',
+   SIZE = '4665'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\mathH.htm',
+   PWS = 'csldoc/mathH.htm',
+   SIZE = '4636'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\mathI.htm',
+   PWS = 'csldoc/mathI.htm',
+   SIZE = '4651'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\mathJ.htm',
+   PWS = 'csldoc/mathJ.htm',
+   SIZE = '4639'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\mathK.htm',
+   PWS = 'csldoc/mathK.htm',
+   SIZE = '4652'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\prf1.htm',
+   PWS = 'csldoc/prf1.htm',
+   SIZE = '6161'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\prf2.htm',
+   PWS = 'csldoc/prf2.htm',
+   SIZE = '4531'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\prf3.htm',
+   PWS = 'csldoc/prf3.htm',
+   SIZE = '4655'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\prf4.htm',
+   PWS = 'csldoc/prf4.htm',
+   SIZE = '4704'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\prf5.htm',
+   PWS = 'csldoc/prf5.htm',
+   SIZE = '4725'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\prf6.htm',
+   PWS = 'csldoc/prf6.htm',
+   SIZE = '4693'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\prf7.htm',
+   PWS = 'csldoc/prf7.htm',
+   SIZE = '4699'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\prf8.htm',
+   PWS = 'csldoc/prf8.htm',
+   SIZE = '4655'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\prf9.htm',
+   PWS = 'csldoc/prf9.htm',
+   SIZE = '5165'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\prfA.htm',
+   PWS = 'csldoc/prfA.htm',
+   SIZE = '4856'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\prfB.htm',
+   PWS = 'csldoc/prfB.htm',
+   SIZE = '4845'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\prfC.htm',
+   PWS = 'csldoc/prfC.htm',
+   SIZE = '4824'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\prfD.htm',
+   PWS = 'csldoc/prfD.htm',
+   SIZE = '5346'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\prfE.htm',
+   PWS = 'csldoc/prfE.htm',
+   SIZE = '4749'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\prfF.htm',
+   PWS = 'csldoc/prfF.htm',
+   SIZE = '5209'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\rex1.htm',
+   PWS = 'csldoc/rex1.htm',
+   SIZE = '6330'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\rex2.htm',
+   PWS = 'csldoc/rex2.htm',
+   SIZE = '7894'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\rex3.htm',
+   PWS = 'csldoc/rex3.htm',
+   SIZE = '8204'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\rex4.htm',
+   PWS = 'csldoc/rex4.htm',
+   SIZE = '6307'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\rex5.htm',
+   PWS = 'csldoc/rex5.htm',
+   SIZE = '4279'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\rex6.htm',
+   PWS = 'csldoc/rex6.htm',
+   SIZE = '6995'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\rex7.htm',
+   PWS = 'csldoc/rex7.htm',
+   SIZE = '5738'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\rex8.htm',
+   PWS = 'csldoc/rex8.htm',
+   SIZE = '4978'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\str1.htm',
+   PWS = 'csldoc/str1.htm',
+   SIZE = '6254'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\str2.htm',
+   PWS = 'csldoc/str2.htm',
+   SIZE = '5418'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\str3.htm',
+   PWS = 'csldoc/str3.htm',
+   SIZE = '5573'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\str4.htm',
+   PWS = 'csldoc/str4.htm',
+   SIZE = '5897'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\str5.htm',
+   PWS = 'csldoc/str5.htm',
+   SIZE = '5419'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\str6.htm',
+   PWS = 'csldoc/str6.htm',
+   SIZE = '5530'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\str7.htm',
+   PWS = 'csldoc/str7.htm',
+   SIZE = '5823'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\str8.htm',
+   PWS = 'csldoc/str8.htm',
+   SIZE = '5555'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\str9.htm',
+   PWS = 'csldoc/str9.htm',
+   SIZE = '5825'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\strA.htm',
+   PWS = 'csldoc/strA.htm',
+   SIZE = '5503'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\strB.htm',
+   PWS = 'csldoc/strB.htm',
+   SIZE = '5489'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\strC.htm',
+   PWS = 'csldoc/strC.htm',
+   SIZE = '5610'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\strD.htm',
+   PWS = 'csldoc/strD.htm',
+   SIZE = '5405'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\strE.htm',
+   PWS = 'csldoc/strE.htm',
+   SIZE = '5409'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\strF.htm',
+   PWS = 'csldoc/strF.htm',
+   SIZE = '5662'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\strG.htm',
+   PWS = 'csldoc/strG.htm',
+   SIZE = '5617'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\strH.htm',
+   PWS = 'csldoc/strH.htm',
+   SIZE = '6111'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\strI.htm',
+   PWS = 'csldoc/strI.htm',
+   SIZE = '5771'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\strJ.htm',
+   PWS = 'csldoc/strJ.htm',
+   SIZE = '5494'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\strK.htm',
+   PWS = 'csldoc/strK.htm',
+   SIZE = '5472'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\strL.htm',
+   PWS = 'csldoc/strL.htm',
+   SIZE = '5483'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\strM.htm',
+   PWS = 'csldoc/strM.htm',
+   SIZE = '5497'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\strN.htm',
+   PWS = 'csldoc/strN.htm',
+   SIZE = '5503'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\strO.htm',
+   PWS = 'csldoc/strO.htm',
+   SIZE = '5799'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\strP.htm',
+   PWS = 'csldoc/strP.htm',
+   SIZE = '5403'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\strQ.htm',
+   PWS = 'csldoc/strQ.htm',
+   SIZE = '5427'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\strR.htm',
+   PWS = 'csldoc/strR.htm',
+   SIZE = '5623'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\strS.htm',
+   PWS = 'csldoc/strS.htm',
+   SIZE = '9172'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\strT.htm',
+   PWS = 'csldoc/strT.htm',
+   SIZE = '8457'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\strU.htm',
+   PWS = 'csldoc/strU.htm',
+   SIZE = '5912'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\sys1.htm',
+   PWS = 'csldoc/sys1.htm',
+   SIZE = '7326'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\sys2.htm',
+   PWS = 'csldoc/sys2.htm',
+   SIZE = '5168'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\sys3.htm',
+   PWS = 'csldoc/sys3.htm',
+   SIZE = '5005'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\sys4.htm',
+   PWS = 'csldoc/sys4.htm',
+   SIZE = '5449'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\sys5.htm',
+   PWS = 'csldoc/sys5.htm',
+   SIZE = '5072'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\sys6.htm',
+   PWS = 'csldoc/sys6.htm',
+   SIZE = '5089'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\sys7.htm',
+   PWS = 'csldoc/sys7.htm',
+   SIZE = '6232'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\sys8.htm',
+   PWS = 'csldoc/sys8.htm',
+   SIZE = '6472'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\sys9.htm',
+   PWS = 'csldoc/sys9.htm',
+   SIZE = '5764'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\sysA.htm',
+   PWS = 'csldoc/sysA.htm',
+   SIZE = '5494'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\sysB.htm',
+   PWS = 'csldoc/sysB.htm',
+   SIZE = '5557'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\sysC.htm',
+   PWS = 'csldoc/sysC.htm',
+   SIZE = '5043'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\sysD.htm',
+   PWS = 'csldoc/sysD.htm',
+   SIZE = '5251'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\sysE.htm',
+   PWS = 'csldoc/sysE.htm',
+   SIZE = '5088'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\sysF.htm',
+   PWS = 'csldoc/sysF.htm',
+   SIZE = '6048'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\sysG.htm',
+   PWS = 'csldoc/sysG.htm',
+   SIZE = '5062'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\sysH.htm',
+   PWS = 'csldoc/sysH.htm',
+   SIZE = '5062'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\sysI.htm',
+   PWS = 'csldoc/sysI.htm',
+   SIZE = '6062'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\sysJ.htm',
+   PWS = 'csldoc/sysJ.htm',
+   SIZE = '5001'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\sysK.htm',
+   PWS = 'csldoc/sysK.htm',
+   SIZE = '7582'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\sysL.htm',
+   PWS = 'csldoc/sysL.htm',
+   SIZE = '5100'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\sysM.htm',
+   PWS = 'csldoc/sysM.htm',
+   SIZE = '5066'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\sysN.htm',
+   PWS = 'csldoc/sysN.htm',
+   SIZE = '5102'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\sysO.htm',
+   PWS = 'csldoc/sysO.htm',
+   SIZE = '5349'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\using1.htm',
+   PWS = 'csldoc/using1.htm',
+   SIZE = '4615'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\using2.htm',
+   PWS = 'csldoc/using2.htm',
+   SIZE = '4507'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\using3.htm',
+   PWS = 'csldoc/using3.htm',
+   SIZE = '4416'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\using4.htm',
+   PWS = 'csldoc/using4.htm',
+   SIZE = '6317'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\win1.htm',
+   PWS = 'csldoc/win1.htm',
+   SIZE = '7321'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\win2.htm',
+   PWS = 'csldoc/win2.htm',
+   SIZE = '4812'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\win3.htm',
+   PWS = 'csldoc/win3.htm',
+   SIZE = '4783'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\win4.htm',
+   PWS = 'csldoc/win4.htm',
+   SIZE = '5470'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\win5.htm',
+   PWS = 'csldoc/win5.htm',
+   SIZE = '5168'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\win6.htm',
+   PWS = 'csldoc/win6.htm',
+   SIZE = '4848'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\win7.htm',
+   PWS = 'csldoc/win7.htm',
+   SIZE = '4830'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\win8.htm',
+   PWS = 'csldoc/win8.htm',
+   SIZE = '4925'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\win9.htm',
+   PWS = 'csldoc/win9.htm',
+   SIZE = '4874'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\winA.htm',
+   PWS = 'csldoc/winA.htm',
+   SIZE = '4874'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\winB.htm',
+   PWS = 'csldoc/winB.htm',
+   SIZE = '5459'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\winC.htm',
+   PWS = 'csldoc/winC.htm',
+   SIZE = '4865'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\winD.htm',
+   PWS = 'csldoc/winD.htm',
+   SIZE = '5139'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\winE.htm',
+   PWS = 'csldoc/winE.htm',
+   SIZE = '5355'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\winF.htm',
+   PWS = 'csldoc/winF.htm',
+   SIZE = '4847'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\winG.htm',
+   PWS = 'csldoc/winG.htm',
+   SIZE = '5492'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\winH.htm',
+   PWS = 'csldoc/winH.htm',
+   SIZE = '5039'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\winI.htm',
+   PWS = 'csldoc/winI.htm',
+   SIZE = '4830'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:csldoc\winX.htm',
+   PWS = 'csldoc/winX.htm',
+   SIZE = '7635'
+
+FILE
+   EXITWHEN = 'INSTALL || UPDATE || RESTORE',
+   EXITIGNOREERR = 'NO',
+   EXIT = 'CREATEWPSOBJECT WPUrl "CSL Reference Manual" <%FOLDERID%> R "OBJECTID=<IbkCslRef>;URL=%EPFIFILEDIR%//csldoc//index.htm"'
+
+FILE
+   EXITWHEN = 'DELETE',
+   EXITIGNOREERR = 'YES',
+   EXIT = 'DELETEWPSOBJECT <IbkCslRef>'
+
+**********************************************************************
+
+COMPONENT
+   NAME = 'Script Samples',
+   ID = 'CSLSMP',
+   REQUIRES = 'INSFIRST DELLAST',
+   DISPLAY = 'YES',
+   DESCRIPTION = 'Sample CSL Scripts',
+   SIZE = '50000',
+   SHARED = 'NO',
+   DELETE = 'YES'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Samples\args.csl',
+   PWS = 'Samples/args.csl',
+   SIZE = '118'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Samples\cgiform.htm',
+   PWS = 'Samples/cgiform.htm',
+   SIZE = '830'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Samples\cgiprog.cmd',
+   PWS = 'Samples/cgiprog.cmd',
+   SIZE = '5807'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Samples\cgiread.txt',
+   PWS = 'Samples/cgiread.txt',
+   SIZE = '1404'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Samples\dos2unix.cmd',
+   PWS = 'Samples/dos2unix.cmd',
+   SIZE = '2279'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Samples\hello.csl',
+   PWS = 'Samples/hello.csl',
+   SIZE = '67'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Samples\notepd.csl',
+   PWS = 'Samples/notepd.csl',
+   SIZE = '2367'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Samples\portable.csl',
+   PWS = 'Samples/portable.csl',
+   SIZE = '1992'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Samples\regular.csl',
+   PWS = 'Samples/regular.csl',
+   SIZE = '735'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Samples\toys.csl',
+   PWS = 'Samples/toys.csl',
+   SIZE = '1578'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Samples\trace.csl',
+   PWS = 'Samples/trace.csl',
+   SIZE = '519'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Samples\unix2dos.cmd',
+   PWS = 'Samples/unix2dos.cmd',
+   SIZE = '2283'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Samples\unknown.csl',
+   PWS = 'Samples/unknown.csl',
+   SIZE = '1398'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Samples\tss.cmd',
+   PWS = 'Samples/tss.cmd',
+   SIZE = '23907'
+
+**********************************************************************
+
+COMPONENT
+   NAME = 'API',
+   ID = 'CSLAPI',
+   REQUIRES = 'INSFIRST CSLEXE DELLAST',
+   DISPLAY = 'YES',
+   DESCRIPTION = 'Application Programming Interface (API).',
+   SIZE = '180000',
+   SHARED = 'NO',
+   DELETE = 'YES'
+
+UPDATECONFIG
+   VAR = 'SET INCLUDE',
+   ADDSTR = '%EPFIFILEDIR%//INCLUDE',
+   ADDWHEN = 'INSTALL',
+   DELETEWHEN = 'DELETE'
+
+UPDATECONFIG
+   VAR = 'SET LIB',
+   ADDSTR = '%EPFIFILEDIR%//OS2//LIB',
+   ADDWHEN = 'INSTALL',
+   DELETEWHEN = 'DELETE'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Include\ZAsync.hpp',
+   PWS = 'Include/ZAsync.hpp',
+   SIZE = '7750'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Include\ZBase.h',
+   PWS = 'Include/ZBase.h',
+   SIZE = '4712'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Include\ZBase.hpp',
+   PWS = 'Include/ZBase.hpp',
+   SIZE = '1942'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Include\ZCsl.h',
+   PWS = 'Include/ZCsl.h',
+   SIZE = '1683'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Include\ZCsl.hpp',
+   PWS = 'Include/ZCsl.hpp',
+   SIZE = '29193'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Include\ZCss.hpp',
+   PWS = 'Include/ZCss.hpp',
+   SIZE = '1385'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Include\ZCslApi.h',
+   PWS = 'Include/ZCslApi.h',
+   SIZE = '10262'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Include\ZCssApi.h',
+   PWS = 'Include/ZCssApi.h',
+   SIZE = '2741'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Include\ZCslWrap.hpp',
+   PWS = 'Include/ZCslWrap.hpp',
+   SIZE = '10007'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Include\ZCssWrap.hpp',
+   PWS = 'Include/ZCssWrap.hpp',
+   SIZE = '1413'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Include\ZDate.hpp',
+   PWS = 'Include/ZDate.hpp',
+   SIZE = '4750'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Include\ZDynLink.hpp',
+   PWS = 'Include/ZDynLink.hpp',
+   SIZE = '2195'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Include\ZExcept.hpp',
+   PWS = 'Include/ZExcept.hpp',
+   SIZE = '2410'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Include\ZFile.hpp',
+   PWS = 'Include/ZFile.hpp',
+   SIZE = '3534'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Include\ZPlatfrm.hpp',
+   PWS = 'Include/ZPlatfrm.hpp',
+   SIZE = '2865'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Include\ZProcess.hpp',
+   PWS = 'Include/ZProcess.hpp',
+   SIZE = '1411'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Include\ZProfile.hpp',
+   PWS = 'Include/ZProfile.hpp',
+   SIZE = '3705'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Include\ZPtrlist.hpp',
+   PWS = 'Include/ZPtrlist.hpp',
+   SIZE = '5186'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Include\ZRegular.hpp',
+   PWS = 'Include/ZRegular.hpp',
+   SIZE = '2767'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Include\ZSql.hpp',
+   PWS = 'Include/ZSql.hpp',
+   SIZE = '11660'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Include\ZString.hpp',
+   PWS = 'Include/ZString.hpp',
+   SIZE = '11910'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Include\ZStrlist.hpp',
+   PWS = 'Include/ZStrlist.hpp',
+   SIZE = '1272'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Include\ZTrace.hpp',
+   PWS = 'Include/ZTrace.hpp',
+   SIZE = '3515'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Lib\ZBaseI.lib',
+   PWS = 'Os2/Lib/ZBaseI.lib',
+   SIZE = '35840'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Lib\ZCslApiI.lib',
+   PWS = 'Os2/Lib/ZCslApiI.lib',
+   SIZE = '2560'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Lib\ZCslI.lib',
+   PWS = 'Os2/Lib/ZCslI.lib',
+   SIZE = '3072'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Lib\ZCslWrpI.lib',
+   PWS = 'Os2/Lib/ZCslWrpI.lib',
+   SIZE = '3584'
+
+**********************************************************************
+
+COMPONENT
+   NAME = 'API Samples',
+   ID = 'APISMP',
+   REQUIRES = 'INSFIRST DELLAST',
+   DISPLAY = 'YES',
+   DESCRIPTION = 'Samples using the APIs of CSL',
+   SIZE = '20000',
+   SHARED = 'NO',
+   DELETE = 'YES'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Samples\Api\Source\Embed.c',
+   PWS = 'Samples/Api/Source/Embed.c',
+   SIZE = '5671'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Samples\Api\Source\MyLib.c',
+   PWS = 'Samples/Api/Source/MyLib.c',
+   SIZE = '3356'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Samples\Api\Source\testlib.csl',
+   PWS = 'Samples/Api/Source/testlib.csl',
+   SIZE = '135'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Samples\Api\Os2\Ibm\build.cmd',
+   PWS = 'Samples/Api/Os2/Ibm/build.cmd',
+   SIZE = '502'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Samples\Api\Os2\Ibm\cleanup.cmd',
+   PWS = 'Samples/Api/Os2/Ibm/cleanup.cmd',
+   SIZE = '88'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Samples\Api\Os2\Ibm\MyLib.def',
+   PWS = 'Samples/Api/Os2/Ibm/MyLib.def',
+   SIZE = '226'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Samples\Class\Source\Embed.cpp',
+   PWS = 'Samples/Class/Source/Embed.cpp',
+   SIZE = '3303'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Samples\Class\Source\MyLib.cpp',
+   PWS = 'Samples/Class/Source/MyLib.cpp',
+   SIZE = '2020'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Samples\Class\Source\testlib.csl',
+   PWS = 'Samples/Class/Source/testlib.csl',
+   SIZE = '153'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Samples\Class\Os2\Ibm\build.cmd',
+   PWS = 'Samples/Class/Os2/Ibm/build.cmd',
+   SIZE = '530'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Samples\Class\Os2\Ibm\cleanup.cmd',
+   PWS = 'Samples/Class/Os2/Ibm/cleanup.cmd',
+   SIZE = '88'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Samples\Api\Os2\Ibm\MyLib.def',
+   PWS = 'Samples/Api/Os2/Ibm/MyLib.def',
+   SIZE = '226'
+
+**********************************************************************
+
+COMPONENT
+   NAME = 'Source',
+   ID = 'SOURCE',
+   REQUIRES = 'INSFIRST DELLAST',
+   DISPLAY = 'YES',
+   DESCRIPTION = 'Sourcecode and Makefiles of CSL',
+   SIZE = '840000',
+   SHARED = 'NO',
+   DELETE = 'YES'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Base\ZAsync.cpp',
+   PWS = 'Source/Base/ZAsync.cpp',
+   SIZE = '43839'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Base\ZAsync.hpp',
+   PWS = 'Source/Base/ZAsync.hpp',
+   SIZE = '7750'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Base\ZBase.h',
+   PWS = 'Source/Base/ZBase.h',
+   SIZE = '4712'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Base\ZBase.hpp',
+   PWS = 'Source/Base/ZBase.hpp',
+   SIZE = '1942'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Base\ZDate.cpp',
+   PWS = 'Source/Base/ZDate.cpp',
+   SIZE = '8178'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Base\ZDate.hpp',
+   PWS = 'Source/Base/ZDate.hpp',
+   SIZE = '4750'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Base\ZDynLink.cpp',
+   PWS = 'Source/Base/ZDynLink.cpp',
+   SIZE = '10916'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Base\ZDynLink.hpp',
+   PWS = 'Source/Base/ZDynLink.hpp',
+   SIZE = '2195'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Base\ZExcept.cpp',
+   PWS = 'Source/Base/ZExcept.cpp',
+   SIZE = '1285'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Base\ZExcept.hpp',
+   PWS = 'Source/Base/ZExcept.hpp',
+   SIZE = '2410'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Base\ZFile.cpp',
+   PWS = 'Source/Base/ZFile.cpp',
+   SIZE = '4540'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Base\ZFile.hpp',
+   PWS = 'Source/Base/ZFile.hpp',
+   SIZE = '3534'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Base\ZPlatfrm.cpp',
+   PWS = 'Source/Base/ZPlatfrm.cpp',
+   SIZE = '9744'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Base\ZPlatfrm.hpp',
+   PWS = 'Source/Base/ZPlatfrm.hpp',
+   SIZE = '2865'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Base\ZProcess.cpp',
+   PWS = 'Source/Base/ZProcess.cpp',
+   SIZE = '1879'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Base\ZProcess.hpp',
+   PWS = 'Source/Base/ZProcess.hpp',
+   SIZE = '1411'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Base\ZProfile.cpp',
+   PWS = 'Source/Base/ZProfile.cpp',
+   SIZE = '24424'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Base\ZProfile.hpp',
+   PWS = 'Source/Base/ZProfile.hpp',
+   SIZE = '3705'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Base\ZPtrlist.cpp',
+   PWS = 'Source/Base/ZPtrlist.cpp',
+   SIZE = '4345'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Base\ZPtrlist.hpp',
+   PWS = 'Source/Base/ZPtrlist.hpp',
+   SIZE = '5186'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Base\ZRegular.cpp',
+   PWS = 'Source/Base/ZRegular.cpp',
+   SIZE = '3601'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Base\ZRegular.hpp',
+   PWS = 'Source/Base/ZRegular.hpp',
+   SIZE = '2767'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Base\ZSql.cpp',
+   PWS = 'Source/Base/ZSql.cpp',
+   SIZE = '9882'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Base\ZSql.hpp',
+   PWS = 'Source/Base/ZSql.hpp',
+   SIZE = '11660'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Base\ZString.cpp',
+   PWS = 'Source/Base/ZString.cpp',
+   SIZE = '36710'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Base\ZString.hpp',
+   PWS = 'Source/Base/ZString.hpp',
+   SIZE = '11910'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Base\ZStrlist.hpp',
+   PWS = 'Source/Base/ZStrlist.hpp',
+   SIZE = '1272'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Base\ZTrace.cpp',
+   PWS = 'Source/Base/ZTrace.cpp',
+   SIZE = '3624'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Base\ZTrace.hpp',
+   PWS = 'Source/Base/ZTrace.hpp',
+   SIZE = '3515'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Csl\Block.cpp',
+   PWS = 'Source/Csl/Block.cpp',
+   SIZE = '3279'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Csl\Compile.cpp',
+   PWS = 'Source/Csl/Compile.cpp',
+   SIZE = '59001'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Csl\Function.cpp',
+   PWS = 'Source/Csl/Function.cpp',
+   SIZE = '5308'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Csl\Input.cpp',
+   PWS = 'Source/Csl/Input.cpp',
+   SIZE = '14727'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Csl\Instruct.cpp',
+   PWS = 'Source/Csl/Instruct.cpp',
+   SIZE = '5490'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Csl\Internal.h',
+   PWS = 'Source/Csl/Internal.h',
+   SIZE = '3985'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Csl\Interprt.cpp',
+   PWS = 'Source/Csl/Interprt.cpp',
+   SIZE = '19823'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Csl\Library.cpp',
+   PWS = 'Source/Csl/Library.cpp',
+   SIZE = '5260'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Csl\Parametr.cpp',
+   PWS = 'Source/Csl/Parametr.cpp',
+   SIZE = '1680'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Csl\Utility.cpp',
+   PWS = 'Source/Csl/Utility.cpp',
+   SIZE = '15578'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Csl\Variable.cpp',
+   PWS = 'Source/Csl/Variable.cpp',
+   SIZE = '7159'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Csl\ZCsl.cpp',
+   PWS = 'Source/Csl/ZCsl.cpp',
+   SIZE = '14069'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Csl\ZCsl.h',
+   PWS = 'Source/Csl/ZCsl.h',
+   SIZE = '1683'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Csl\ZCsl.hpp',
+   PWS = 'Source/Csl/ZCsl.hpp',
+   SIZE = '29193'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Csl\ZCss.hpp',
+   PWS = 'Source/Csl/ZCss.hpp',
+   SIZE = '1385'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\CslApi\ZCslApi.cpp',
+   PWS = 'Source/CslApi/ZCslApi.cpp',
+   SIZE = '17603'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\CslApi\ZCslApi.h',
+   PWS = 'Source/CslApi/ZCslApi.h',
+   SIZE = '10262'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\CslApi\ZCssApi.h',
+   PWS = 'Source/CslApi/ZCssApi.h',
+   SIZE = '2741'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\CslExe\Csl.cpp',
+   PWS = 'Source/CslExe/Csl.cpp',
+   SIZE = '3607'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\CslWrap\ZCslWrap.cpp',
+   PWS = 'Source/CslWrap/ZCslWrap.cpp',
+   SIZE = '12674'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\CslWrap\ZCslWrap.hpp',
+   PWS = 'Source/CslWrap/ZCslWrap.hpp',
+   SIZE = '10007'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\CslWrap\ZCssWrap.hpp',
+   PWS = 'Source/CslWrap/ZCssWrap.hpp',
+   SIZE = '1413'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Db2\ZDb2.cpp',
+   PWS = 'Source/Db2/ZDb2.cpp',
+   SIZE = '33386'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Db2\ZDb2.hpp',
+   PWS = 'Source/Db2/ZDb2.hpp',
+   SIZE = '7950'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Oracle\ZOracle.cpp',
+   PWS = 'Source/Oracle/ZOracle.cpp',
+   SIZE = '33685'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Oracle\ZOracle.hpp',
+   PWS = 'Source/Oracle/ZOracle.hpp',
+   SIZE = '9853'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Mysql\ZMysql.cpp',
+   PWS = 'Source/Mysql/ZMysql.cpp',
+   SIZE = '24809'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Mysql\ZMysql.hpp',
+   PWS = 'Source/Mysql/ZMysql.hpp',
+   SIZE = '7985'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Odbc\ZOdbc.cpp',
+   PWS = 'Source/Odbc/ZOdbc.cpp',
+   SIZE = '34005'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\Odbc\ZOdbc.hpp',
+   PWS = 'Source/Odbc/ZOdbc.hpp',
+   SIZE = '8110'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\ComLib\ZcComLib.cpp',
+   PWS = 'Source/ComLib/ZcComLib.cpp',
+   SIZE = '8552'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\ComLib\ZcComLib.csl',
+   PWS = 'Source/ComLib/ZcComLib.csl',
+   SIZE = '4204'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\DaxLib\ZcDaxLib.cpp',
+   PWS = 'Source/DaxLib/ZcDaxLib.cpp',
+   SIZE = '17550'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\DaxLib\ZcDaxLib.csl',
+   PWS = 'Source/DaxLib/ZcDaxLib.csl',
+   SIZE = '5043'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\FileLb\ZcFileLb.cpp',
+   PWS = 'Source/FileLb/ZcFileLb.cpp',
+   SIZE = '11935'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\FileLb\ZcFileLb.csl',
+   PWS = 'Source/FileLb/ZcFileLb.csl',
+   SIZE = '5089'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\MathLb\ZcMathLb.cpp',
+   PWS = 'Source/MathLb/ZcMathLb.cpp',
+   SIZE = '5590'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\MathLb\ZcMathLb.csl',
+   PWS = 'Source/MathLb/ZcMathLb.csl',
+   SIZE = '2601'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\PrfLib\ZcPrfLib.cpp',
+   PWS = 'Source/PrfLib/ZcPrfLib.cpp',
+   SIZE = '9144'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\PrfLib\ZcPrfLib.csl',
+   PWS = 'Source/PrfLib/ZcPrfLib.csl',
+   SIZE = '4986'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\RexLib\ZcRexLib.cpp',
+   PWS = 'Source/RexLib/ZcRexLib.cpp',
+   SIZE = '4847'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\RexLib\ZcRexLib.csl',
+   PWS = 'Source/RexLib/ZcRexLib.csl',
+   SIZE = '2590'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\StrLib\ZcStrLib.cpp',
+   PWS = 'Source/StrLib/ZcStrLib.cpp',
+   SIZE = '25514'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\StrLib\ZcStrLib.csl',
+   PWS = 'Source/StrLib/ZcStrLib.csl',
+   SIZE = '9340'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\SysLib\ZcSysLib.cpp',
+   PWS = 'Source/SysLib/ZcSysLib.cpp',
+   SIZE = '15649'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Source\SysLib\ZcSysLib.csl',
+   PWS = 'Source/SysLib/ZcSysLib.csl',
+   SIZE = '6549'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Def\ZBaseI.def',
+   PWS = 'Os2/Def/ZBaseI.def',
+   SIZE = '174'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Def\ZCslApi.def',
+   PWS = 'Os2/Def/ZCslApi.def',
+   SIZE = '725'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Def\ZCslI.def',
+   PWS = 'Os2/Def/ZCslI.def',
+   SIZE = '160'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Def\ZCslWrpI.def',
+   PWS = 'Os2/Def/ZCslWrpI.def',
+   SIZE = '168'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Def\ZDb2I.def',
+   PWS = 'Os2/Def/ZDb2I.def',
+   SIZE = '174'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Def\ZOracleI.def',
+   PWS = 'Os2/Def/ZOracleI.def',
+   SIZE = '179'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Def\ZMysqlI.def',
+   PWS = 'Os2/Def/ZMysqlI.def',
+   SIZE = '178'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Def\ZcComLib.def',
+   PWS = 'Os2/Def/ZcComLib.def',
+   SIZE = '246'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Def\ZcDaxLib.def',
+   PWS = 'Os2/Def/ZcDaxLib.def',
+   SIZE = '241'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Def\ZcFileLb.def',
+   PWS = 'Os2/Def/ZcFileLb.def',
+   SIZE = '230'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Def\ZcMathLb.def',
+   PWS = 'Os2/Def/ZcMathLb.def',
+   SIZE = '230'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Def\ZcPrfLib.def',
+   PWS = 'Os2/Def/ZcPrfLib.def',
+   SIZE = '233'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Def\ZcRexLib.def',
+   PWS = 'Os2/Def/ZcRexLib.def',
+   SIZE = '245'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Def\ZcStrLib.def',
+   PWS = 'Os2/Def/ZcStrLib.def',
+   SIZE = '232'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Def\ZcSysLib.def',
+   PWS = 'Os2/Def/ZcSysLib.def',
+   SIZE = '232'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Def\Native\ZcComLib.def',
+   PWS = 'Os2/Def/Native/ZcComLib.def',
+   SIZE = '187'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Def\Native\ZcDaxLib.def',
+   PWS = 'Os2/Def/Native/ZcDaxLib.def',
+   SIZE = '181'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Def\Native\ZcFileLb.def',
+   PWS = 'Os2/Def/Native/ZcFileLb.def',
+   SIZE = '171'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Def\Native\ZcMathLb.def',
+   PWS = 'Os2/Def/Native/ZcMathLb.def',
+   SIZE = '171'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Def\Native\ZcPrfLib.def',
+   PWS = 'Os2/Def/Native/ZcPrfLib.def',
+   SIZE = '174'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Def\Native\ZcRexLib.def',
+   PWS = 'Os2/Def/Native/ZcRexLib.def',
+   SIZE = '186'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Def\Native\ZcStrLib.def',
+   PWS = 'Os2/Def/Native/ZcStrLib.def',
+   SIZE = '172'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Def\Native\ZcSysLib.def',
+   PWS = 'Os2/Def/Native/ZcSysLib.def',
+   SIZE = '173'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Ibm\env.cmd',
+   PWS = 'Os2/Ibm/env.cmd',
+   SIZE = '268'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Ibm\location',
+   PWS = 'Os2/Ibm/location',
+   SIZE = '1451'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Ibm\makefile',
+   PWS = 'Os2/Ibm/makefile',
+   SIZE = '1879'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Ibm\makelib',
+   PWS = 'Os2/Ibm/makelib',
+   SIZE = '2854'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Ibm\makeprog',
+   PWS = 'Os2/Ibm/makeprog',
+   SIZE = '2286'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Ibm\mkcsllib',
+   PWS = 'Os2/Ibm/mkcsllib',
+   SIZE = '1543'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Ibm\Readme.txt',
+   PWS = 'Os2/Ibm/Readme.txt',
+   SIZE = '2343'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Ibm\Base\makefile',
+   PWS = 'Os2/Ibm/Base/makefile',
+   SIZE = '2028'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Ibm\ComLib\makefile',
+   PWS = 'Os2/Ibm/ComLib/makefile',
+   SIZE = '1199'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Ibm\Csl\makefile',
+   PWS = 'Os2/Ibm/Csl/makefile',
+   SIZE = '1732'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Ibm\CslApi\makefile',
+   PWS = 'Os2/Ibm/CslApi/makefile',
+   SIZE = '1515'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Ibm\CslExe\makefile',
+   PWS = 'Os2/Ibm/CslExe/makefile',
+   SIZE = '1698'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Ibm\CslWrap\makefile',
+   PWS = 'Os2/Ibm/CslWrap/makefile',
+   SIZE = '1524'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Ibm\DaxLib\makefile',
+   PWS = 'Os2/Ibm/DaxLib/makefile',
+   SIZE = '1199'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Ibm\Db2\makefile',
+   PWS = 'Os2/Ibm/Db2/makefile',
+   SIZE = '1421'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Ibm\FileLb\makefile',
+   PWS = 'Os2/Ibm/FileLb/makefile',
+   SIZE = '1199'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Ibm\MathLb\makefile',
+   PWS = 'Os2/Ibm/MathLb/makefile',
+   SIZE = '1199'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Ibm\Oracle\makefile',
+   PWS = 'Os2/Ibm/Oracle/makefile',
+   SIZE = '1462'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Ibm\Mysql\makefile',
+   PWS = 'Os2/Ibm/Mysql/makefile',
+   SIZE = '1551'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Ibm\Mysql\mysql.h',
+   PWS = 'Os2/Ibm/Mysql/mysql.h',
+   SIZE = '12870'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Ibm\PrfLib\makefile',
+   PWS = 'Os2/Ibm/PrfLib/makefile',
+   SIZE = '1199'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Ibm\RexLib\makefile',
+   PWS = 'Os2/Ibm/RexLib/makefile',
+   SIZE = '1199'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Ibm\StrLib\makefile',
+   PWS = 'Os2/Ibm/Strlib/makefile',
+   SIZE = '1199'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Ibm\SysLib\makefile',
+   PWS = 'Os2/Ibm/SysLib/makefile',
+   SIZE = '1199'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Icons\Csl.ico',
+   PWS = 'Os2/Icons/Csl.ico',
+   SIZE = '1010'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:Os2\Icons\CslFile.ico',
+   PWS = 'Os2/Icons/CslFile.ico',
+   SIZE = '1010'
+
+**********************************************************************
+
+COMPONENT
+   NAME = 'DELLAST',
+   ID = 'DELLAST',
+   DISPLAY = 'NO',
+   SIZE = '10000',
+   SHARED = 'NO',
+   DELETE = 'YES'
+
+FILE
+   EXITWHEN = 'DELETE',
+   EXITIGNOREERR = 'YES',
+   EXIT = 'DELETEWPSOBJECT <%FOLDERID%>'
+

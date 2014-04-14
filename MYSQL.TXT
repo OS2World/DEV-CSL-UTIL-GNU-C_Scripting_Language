@@ -1,0 +1,61 @@
+Binary OS/2 distribution and MySQL
+==================================
+
+The MySQL interface of this distribution was linked with MySQL 3.23.32.
+
+If you have any OLDER version of MySQL, you should upgrade. You find
+the directions below.
+
+If you are using a NEWER version of MySQL, you have to try if it works.
+If not, you may either rebuild CSL from the source, or request help at the
+forums on the CSL homepage:
+
+  http://csl.sourceforge.net
+
+
+
+Getting and installing MySQL 3.23.32
+------------------------------------
+
+1) WarpIN installer
+-------------------
+
+Location:
+   http://www.os2site.com/sw/util/installers/warpin-0-9-12.zip
+
+Installation:
+   Read instructions in readme.txt, "Getting started"
+
+
+2) emx 0.9d runtime
+-------------------
+
+Location:
+   http://www.os2site.com/sw/dev/emx/v09d/emxrt.zip
+
+Installation:
+   Read instructions in emxrt.doc
+
+
+3) Make sure TCP/IP is installed
+--------------------------------
+
+If you have a working internet connection this is true. If not
+check "MPTS Network adapters and protocols".
+
+
+4) MySQL 3.23.32:
+-----------------
+
+Location:
+   http://www.os2site.com/sw/apps/database/mysql/mysql-3-23-32-p2.wpi
+
+Installation:
+   Double-click on .wpi file to start installation by WarpIn
+
+Note:
+   After installation, add the MySQL bin path to PATH and LIBPATH in
+   CONFIG.SYS and reboot. (Default location is C:\usr\local\mysql\bin)
+
+
+                                                       2001.07.07, Peter Koch

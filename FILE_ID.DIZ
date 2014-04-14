@@ -1,0 +1,10 @@
+CSL (C Scripting Language) V4.2.0 -
+Script language with C syntax and
+comprehensive libraries: system, files,
+math, strings, sql, reg. expressions,
+async communications, registry access,
+windows control etc. API's for most
+popular C/C++ compilers: develop your
+own libraries or enhance your
+application with a scripting facility.
+GPL open source. Author: Peter Koch

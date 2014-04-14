@@ -1,0 +1,113 @@
+# Copyright (c) 2001 IBK-Landquart-Switzerland. All rights reserved.
+#
+# Module      :  Makelib
+# Application :  IBK Open Class Library
+# Purpose     :  Generic makefile for dll/lib build
+#
+# Date        Description                                 Who
+# --------------------------------------------------------------------------
+# 2001.06.06  First implemention                          P.Koch, IBK
+# 2001.07.10  Rename to CSL                               P.Koch, IBK
+#
+# OPEN SOURCE LICENSE
+#
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to IBK at info@ibk-software.ch.
+
+INCLUDE = $(INCDIR);$(SRCDIR);$(INCLUDE)
+LIB     = $(LIBDIR);$(LIB)
+
+!ifdef TRACE
+CDEFS = /DZC_TRACE_DEVELOP $(CDEFS)
+!endif
+
+!ifdef DEBUG
+CFLAGS=$(CDEFS) /Q /N10 /Ti /Gm /Ge- /Fo".\%|fF.obj" /C
+LFLAGS=$(LDEFS) /debug /exepack:2 /packd /nologo /m
+!else
+CFLAGS=$(CDEFS) /Q /N10 /O /Gm /Ge- /Fo".\%|fF.obj" /C
+LFLAGS=$(LDEFS) /nologo /exepack:2 /packd /m
+!endif
+
+.SUFFIXES: .hpp .h .csl .obj .c .cpp .dll
+
+# rules for copying files
+
+{$(SRCDIR)}.hpp{$(INCDIR)}.hpp:
+  @echo copy to $@
+  @copy $< $@ >nul
+
+{$(SRCDIR)}.h{$(INCDIR)}.h:
+  @echo copy to $@
+  @copy $< $@ >nul
+
+{$(SRCDIR)}.csl{$(CSLDIR)}.csl:
+  @echo copy to $@
+  @copy $< $@ >nul
+
+{$(BASEDIR)}.h{$(INCDIR)}.h:
+  @echo copy to $@
+  @copy $< $@ >nul
+
+.dll{$(BINDIR)}.dll:
+  @echo copy to $@
+  @copy $< $@ >nul
+
+.dll{$(IBINDIR)}.dll:
+  @echo copy to $@
+  @copy $< $@ >nul
+
+# rules for compiling
+
+{$(SRCDIR)}.c.obj:
+  @echo compile $<
+  @icc $(CFLAGS) $<
+
+{$(SRCDIR)}.cpp.obj:
+  @echo compile $<
+  @icc $(CFLAGS) $<
+
+#explicit rules
+
+all : $(TARGETDIRS) $(TARGETS)
+
+$(TARGETDIRS) :
+        !@if not exist $*\. md $*
+
+$(LIBDIR)\$(TARGETLIB).lib : $(TARGET).dll
+        @echo create $@
+        @implib /nologo $@ $**
+
+$(IBINDIR)\$(TARGET).dll : $(TARGET).dll
+
+$(BINDIR)\$(TARGET).dll : $(TARGET).dll
+
+$(TARGET).dll : $(DEFDIR)\$(TARGET).def $(OBJECTS)
+    @echo linking $@
+    @icc /q @<<
+     /B" $(LFLAGS)"
+     /Fe$@
+     $(DEFDIR)\$(TARGET).def
+     $(OBJECTS) $(LIBRARIES)
+<<
+
+$(OBJECTS) : $(INCLUDES) makefile
+
+CLEANUPS = \
+  $(CLEANUPS) \
+  $(OBJECTS) \
+  $(TARGET).dll \
+  $(TARGET).map
+
+clean :
+  @for %%f in ($(CLEANUPS)) do @if exist %%f del %%f

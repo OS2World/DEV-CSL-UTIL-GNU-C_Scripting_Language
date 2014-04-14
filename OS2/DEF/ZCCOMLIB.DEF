@@ -1,0 +1,10 @@
+LIBRARY     ZcComLib   INITINSTANCE TERMINSTANCE
+DESCRIPTION 'CSL Async Communications Library'
+PROTMODE
+DATA        MULTIPLE READWRITE LOADONCALL
+CODE        LOADONCALL
+EXPORTS
+            ZCslInitLibAPI
+            ZCslCleanupLibAPI
+
+

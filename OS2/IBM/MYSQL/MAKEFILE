@@ -1,0 +1,46 @@
+# Copyright (c) 2001 IBK-Landquart-Switzerland. All rights reserved.
+#
+# Module      :  Makefile
+# Application :  IBK Open Class Library
+# Purpose     :  Build ZMysqlI.dll
+#
+# Date        Description                                 Who
+# --------------------------------------------------------------------------
+# 2001.06.29  First implemention                          P.Koch, IBK
+#
+# OPEN SOURCE LICENSE
+#
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to IBK at info@ibk-software.ch.
+
+!include ..\location
+
+TARGET     = ZMysqlI
+TARGETLIB  =
+SRCDIR     = $(SRCROOT)\Mysql
+TARGETS    = mysql.lib $(BINDIR)\$(TARGET).dll
+TARGETDIRS = $(BINDIR)
+LIB        = $(MYSQL)\lib;$(LIB)
+LIBRARIES  = mysql.lib
+CLEANUPS   = mysql.lib
+CDEFS      =
+LDEFS      =  
+OBJECTS    = ZMysql.obj
+INCLUDE    = .;$(MYSQL)\include;$(INCLUDE)
+INCLUDES   = $(SRCDIR)\ZMysql.hpp
+  
+!include ..\makelib
+
+mysql.lib : $(MYSQL)\bin\mysql.dll
+  @echo Creating $@
+  @implib $@ $**

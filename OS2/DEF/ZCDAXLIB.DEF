@@ -1,0 +1,10 @@
+LIBRARY     ZcDaxLib   INITINSTANCE TERMINSTANCE
+DESCRIPTION 'CSL Database Access Library'
+PROTMODE
+DATA        MULTIPLE READWRITE LOADONCALL
+CODE        LOADONCALL
+EXPORTS
+            ZCslInitLibAPI
+            ZCslCleanupLibAPI
+
+

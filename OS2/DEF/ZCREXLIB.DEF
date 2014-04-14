@@ -1,0 +1,10 @@
+LIBRARY     ZcRexLib   INITINSTANCE TERMINSTANCE
+DESCRIPTION 'CSL Regular Expressions Library'
+PROTMODE
+DATA        MULTIPLE READWRITE LOADONCALL
+CODE        LOADONCALL
+EXPORTS
+            ZCslInitLibAPI
+            ZCslCleanupLibAPI
+
+

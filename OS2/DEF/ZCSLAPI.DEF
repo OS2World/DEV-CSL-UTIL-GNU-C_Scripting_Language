@@ -1,0 +1,28 @@
+LIBRARY     ZCslApi   INITINSTANCE TERMINSTANCE
+DESCRIPTION 'CSL API'
+PROTMODE
+DATA        MULTIPLE READWRITE LOADONCALL
+CODE        LOADONCALL
+EXPORTS
+            ZCslOpen
+            ZCslClose
+            ZCslSet
+            ZCslGet
+            ZCslVarSizeof
+            ZCslVarResize
+            ZCslLoadScriptMem
+            ZCslLoadScriptFile
+            ZCslLoadLibrary
+            ZCslCall
+            ZCslCallEx
+            ZCslGetResult
+            ZCslAddFunc
+            ZCslAddVar
+            ZCslSetResult
+            ZCslSetError
+            ZCslSetTraceMode
+            ZCslStartDateTime
+            ZCslTrace
+            ZCslTraceMode
+            ZCslShow
+            ZCslGetError

@@ -1,0 +1,85 @@
+# Copyright (c) 2001 IBK-Landquart-Switzerland. All rights reserved.
+#
+# Module      :  Makeprog
+# Application :  IBK Open Class Library
+# Purpose     :  Generic makefile for exe build
+#
+# Date        Description                                 Who
+# --------------------------------------------------------------------------
+# 2001.06.15  First implemention                          P.Koch, IBK
+#
+# OPEN SOURCE LICENSE
+#
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to IBK at info@ibk-software.ch.
+
+INCLUDE = $(INCDIR);$(SRCDIR);$(INCLUDE)
+LIB     = $(LIBDIR);$(LIB)
+
+!ifdef TRACE
+CDEFS = /DZC_TRACE_DEVELOP $(CDEFS)
+!endif
+
+!ifdef DEBUG
+CFLAGS=$(CDEFS) /Q /Ti /Gm /Fo".\%|fF.obj" /C
+LFLAGS=/debug /nologo /st:0x80000 /exepack:2 /packd /m
+!else
+CFLAGS=$(CDEFS) /Q /O /Gm /Fo".\%|fF.obj" /C
+LFLAGS=/nologo /st:0x80000 /exepack:2 /packd /m
+!endif
+
+.SUFFIXES: .obj .cpp .exe
+
+# rules for copying files
+
+.exe{$(BINDIR)}.exe:
+  @echo copy to $@
+  @copy $< $@ >nul
+
+.exe{$(IBINDIR)}.exe:
+  @echo copy to $@
+  @copy $< $@ >nul
+
+# rules for compiling
+
+{$(SRCDIR)}.cpp.obj:
+  @echo compile $<
+  @icc $(CFLAGS) $<
+
+#explicit rules
+
+all : $(TARGETDIRS) $(TARGETS)
+
+$(TARGETDIRS) :
+  !@if not exist $* md $*
+
+$(BINDIR)\$(TARGET).exe : $(TARGET).exe
+
+$(IBINDIR)\$(TARGET).exe : $(TARGET).exe
+
+$(TARGET).exe : $(OBJECTS) $(TARGET).rc
+        @echo linking $@
+        @icc /q /B" $(LFLAGS)" /Fe$@ $(OBJECTS) $(LIBRARIES)
+        @rc -n $(TARGET).rc $@
+
+$(OBJECTS): $(INCLUDES) makefile ..\makeprog
+
+CLEANUPS = \
+  $(CLEANUPS) \
+  $(OBJECTS) \
+  $(TARGET).exe \
+  $(TARGET).map \
+  $(TARGET).res
+
+clean :
+  @for %%f in ($(CLEANUPS)) do @if exist %%f del %%f

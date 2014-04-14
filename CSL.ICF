@@ -1,0 +1,18 @@
+**********************************************************************
+
+CATALOG
+  NAME         = 'C Scripting Language (CSL)',
+  DESCRIPTION  = 'This catalog contains the CSL programming package.'
+
+
+**********************************************************************
+
+PACKAGE
+  NAME            = 'C Scripting Language (CSL) for OS/2',
+  NUMBER          = '1000-033',
+  FEATURE         = '0001',
+  VRM             = '040200',
+  PACKAGEFILE     = 'DRIVE:CSL.PKG',
+  PKGDESCRFILE    = 'DRIVE:CSL.DSC',
+  SIZE            = '2500000'
+
